@@ -85,6 +85,7 @@ const sidebars = {
           "proxy/guardrails/openai_moderation",
           "proxy/guardrails/pangea",
           "proxy/guardrails/pillar_security",
+          "proxy/guardrails/repelloai",
           "proxy/guardrails/promptguard",
           "proxy/guardrails/pii_masking_v2",
           "proxy/guardrails/panw_prisma_airs",
@@ -280,6 +281,11 @@ const sidebars = {
               label: "speech()",
             },
             {
+              type: "doc",
+              id: "sandbox",
+              label: "acode_interpreter_tool()",
+            },
+            {
               type: "link",
               label: "All Supported Endpoints →",
               href: "https://docs.litellm.ai/docs/supported_endpoints",
@@ -406,6 +412,7 @@ const sidebars = {
                 "proxy/ui/ui_edit_logo",
                 "proxy/custom_sso",
                 "proxy/custom_root_ui",
+                "proxy/plugins",
                 "tutorials/scim_litellm",
               ]
             },
@@ -631,6 +638,19 @@ const sidebars = {
             "proxy/provider_discounts",
             "proxy/sync_models_github",
             "proxy/billing",
+          ],
+        },
+        {
+          type: "category",
+          label: "Cost Optimization",
+          items: [
+            "proxy/auto_routing",
+            "adaptive_router",
+            {
+              type: "link",
+              label: "Prompt Compression",
+              href: "/docs/completion/prompt_compression#server-side-callback-loop-v1messages",
+            },
           ],
         },
       ]
@@ -1277,6 +1297,11 @@ const learnSidebar = {
             "completion/web_fetch",
             "completion/computer_use",
             "guides/code_interpreter",
+            {
+              type: "doc",
+              id: "sandbox",
+              label: "Code Interpreter Sandbox Interception",
+            },
             "completion/anthropic_advisor_tool",
             "completion/message_sanitization",
           ],
@@ -1368,7 +1393,6 @@ const learnSidebar = {
           items: [
             "completion/mock_requests",
             "completion/reliable_completions",
-            "budget_manager",
           ],
         },
         {
