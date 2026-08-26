@@ -24,7 +24,7 @@ LiteLLM Proxy provides an MCP Gateway that allows you to use a fixed endpoint fo
 
 :::caution MCP protocol update
 Starting in LiteLLM v1.80.18, the LiteLLM MCP protocol version is `2025-11-25`.<br/> 
-LiteLLM namespaces multiple MCP servers by prefixing each tool name with its MCP server name, so newly created servers now must use names that comply with SEP-986—noncompliant names cannot be added anymore. Existing servers that still violate SEP-986 only emit warnings today, but future MCP-side rollouts may block those names entirely, so we recommend updating any legacy server names proactively before MCP enforcement makes them unusable.
+LiteLLM namespaces multiple MCP servers by prefixing each tool name with its MCP server name, so newly created servers now must use names that comply with SEP-986; noncompliant names cannot be added anymore. Existing servers that still violate SEP-986 only emit warnings today, but future MCP-side rollouts may block those names entirely, so we recommend updating any legacy server names proactively before MCP enforcement makes them unusable.
 :::
 
 ## Adding your MCP
@@ -395,18 +395,19 @@ See the **[MCP OAuth guide](./mcp_oauth.md)** for setup instructions, sequence d
 
 LiteLLM v 1.77.6 added support for OAuth 2.0 Client Credentials for MCP servers.
 
-You can configure this either in `config.yaml` or directly from the LiteLLM UI (MCP Servers → Authentication → OAuth).
+You can configure this either in `config.yaml` or directly from the LiteLLM UI (MCP Servers → Authentication → OAuth). Every `auth_type: oauth2` server must declare its flow via `oauth2_flow`: `authorization_code` for interactive browser sign-in (shown below) or `client_credentials` for machine-to-machine tokens.
 
 ```yaml
 mcp_servers:
   github_mcp:
     url: "https://api.githubcopilot.com/mcp"
     auth_type: oauth2
+    oauth2_flow: authorization_code
     client_id: os.environ/GITHUB_OAUTH_CLIENT_ID
     client_secret: os.environ/GITHUB_OAUTH_CLIENT_SECRET
 ```
 
-[**See Claude Code Tutorial**](./tutorials/claude_responses_api#connecting-mcp-servers)
+[**See Claude Code Tutorial**](/docs/tutorials/claude_responses_api)
 
 ### How It Works
 
@@ -499,7 +500,7 @@ mcp_servers:
 </TabItem>
 <TabItem value="clientside" label="Dynamically on Client Side">
 
-Use this when giving users access to a [group of MCP servers](#grouping-mcps-access-groups).
+Use this when giving users access to a [group of MCP servers](/docs/mcp#control-mcp-access-for-end-users).
 
 **Format:** `x-mcp-{server_alias}-{header_name}: value`
 
@@ -1213,7 +1214,7 @@ curl --location '<your-litellm-proxy-base-url>/v1/chat/completions' \
   "tools": [
     {
       "type": "mcp",
-      "server_url": "litellm_proxy/mcp/github",
+      "server_url": "litellm_proxy/github/mcp",
       "server_label": "github_mcp",
       "require_approval": "never"
     }
@@ -1236,7 +1237,7 @@ This video demonstrates how you can onboard an MCP server to LiteLLM Proxy, use 
 
 ## LiteLLM Python SDK MCP Bridge
 
-LiteLLM Python SDK acts as a MCP bridge to utilize MCP tools with all LiteLLM supported models. LiteLLM offers the following features for using MCP
+LiteLLM Python SDK acts as a MCP bridge to use MCP tools with all LiteLLM supported models. LiteLLM offers the following features for using MCP
 
 - **List** Available MCP Tools: OpenAI clients can view all available MCP tools
   - `litellm.experimental_mcp_client.load_mcp_tools` to list all available MCP tools
@@ -1498,6 +1499,6 @@ LiteLLM supports automatic token management for the `client_credentials` grant. 
 
 The UI keeps only transient state in `sessionStorage` so the OAuth redirect flow can finish; the token is not persisted in the server or database.
 
-**Q: I'm seeing MCP connection errors—what should I check?**
+**Q: I'm seeing MCP connection errors. What should I check?**
 
 Walk through the [MCP Troubleshooting Guide](./mcp_troubleshoot.md) for step-by-step isolation (Client → LiteLLM vs. LiteLLM → MCP), log examples, and verification methods like MCP Inspector and `curl`.

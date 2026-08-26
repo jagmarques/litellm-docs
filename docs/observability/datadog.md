@@ -2,7 +2,7 @@ import Image from '@theme/IdealImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# DataDog
+# Datadog
 
 LiteLLM Supports logging to the following Datdog Integrations:
 - `datadog` [Datadog Logs](https://docs.datadoghq.com/logs/)
@@ -82,7 +82,7 @@ DD_SOURCE="litellm_dev"                   # [OPTIONAL] your datadog source
 When `LITELLM_DD_AGENT_HOST` is set, logs are sent to the agent instead of directly to DataDog API. This is useful for:
 - Centralized log shipping in containerized environments
 - Reducing direct API calls from multiple services
-- Leveraging agent-side processing and filtering
+- Using agent-side processing and filtering
 
 **Note:** We use `LITELLM_DD_AGENT_HOST` instead of `DD_AGENT_HOST` to avoid conflicts with `ddtrace` which automatically sets `DD_AGENT_HOST` for APM tracing.
 
@@ -289,7 +289,7 @@ docker run \
     -e USE_DDTRACE=true \
     -e USE_DDPROFILER=true \
     -p 4000:4000 \
-    docker.litellm.ai/berriai/litellm:main-latest \
+    docker.litellm.ai/berriai/litellm:latest \
     --config /app/config.yaml --detailed_debug
 ```
 

@@ -30,7 +30,7 @@ A commit hash is cryptographically immutable, making this the strongest verifica
 ```bash
 cosign verify \
   --key https://raw.githubusercontent.com/BerriAI/litellm/0112e53046018d726492c814b3644b7d376029d0/cosign.pub \
-  ghcr.io/berriai/litellm:v1.83.0-stable
+  ghcr.io/berriai/litellm:v1.89.4
 ```
 
 Replace the image reference with any signed variant:
@@ -39,12 +39,12 @@ Replace the image reference with any signed variant:
 # litellm-database
 cosign verify \
   --key https://raw.githubusercontent.com/BerriAI/litellm/0112e53046018d726492c814b3644b7d376029d0/cosign.pub \
-  ghcr.io/berriai/litellm-database:v1.83.0-stable
+  ghcr.io/berriai/litellm-database:v1.89.4
 
 # litellm-non_root
 cosign verify \
   --key https://raw.githubusercontent.com/BerriAI/litellm/0112e53046018d726492c814b3644b7d376029d0/cosign.pub \
-  ghcr.io/berriai/litellm-non_root:v1.83.0-stable
+  ghcr.io/berriai/litellm-non_root:v1.89.4
 ```
 
 ### Verify with a release tag (convenience)
@@ -53,8 +53,8 @@ Tags are protected in this repository and resolve to the same key:
 
 ```bash
 cosign verify \
-  --key https://raw.githubusercontent.com/BerriAI/litellm/v1.83.0-stable/cosign.pub \
-  ghcr.io/berriai/litellm-database:v1.83.0-stable
+  --key https://raw.githubusercontent.com/BerriAI/litellm/v1.89.4/cosign.pub \
+  ghcr.io/berriai/litellm-database:v1.89.4
 ```
 
 ### Expected output
@@ -67,7 +67,7 @@ The following checks were performed on each of these signatures:
 
 ## Enforce verification in CI/CD
 
-### Kubernetes — Sigstore Policy Controller
+### Kubernetes: Sigstore Policy Controller
 
 The [Sigstore Policy Controller](https://docs.sigstore.dev/policy-controller/overview/) rejects pods whose images fail cosign verification.
 
@@ -106,7 +106,7 @@ kubectl label namespace litellm policy.sigstore.dev/include=true
 
 Any pod in that namespace using an unsigned `ghcr.io/berriai/litellm*` image will be rejected at admission.
 
-### GCP — Binary Authorization
+### GCP: Binary Authorization
 
 [Binary Authorization](https://cloud.google.com/binary-authorization/docs) can enforce cosign signatures on Cloud Run and GKE.
 
@@ -123,7 +123,7 @@ Any pod in that namespace using an unsigned `ghcr.io/berriai/litellm*` image wil
 
 Refer to the [GCP Binary Authorization docs](https://cloud.google.com/binary-authorization/docs/setting-up) for full setup steps.
 
-### AWS — ECS / ECR
+### AWS: ECS / ECR
 
 AWS does not natively verify cosign signatures at deploy time. Common approaches:
 
@@ -156,7 +156,7 @@ Get the digest after pulling:
 
 ```bash
 docker inspect --format='{{index .RepoDigests 0}}' \
-  ghcr.io/berriai/litellm-database:v1.83.0-stable
+  ghcr.io/berriai/litellm-database:v1.89.4
 ```
 
 Cosign verification works with digests too:

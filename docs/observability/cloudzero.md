@@ -1,7 +1,7 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# CloudZero Integration
+# CloudZero
 
 LiteLLM provides an integration with CloudZero's AnyCost API, allowing you to export your LLM usage data to CloudZero for cost tracking analysis.
 
@@ -196,7 +196,7 @@ LiteLLM exports data in CloudZero Billing Format (CBF) with the following struct
 
 ### Resource Tagging
 
-LiteLLM automatically creates comprehensive resource tags for cost attribution:
+LiteLLM automatically creates resource tags for cost attribution:
 
 - **Provider Tags**: `openai`, `anthropic`, `azure`, etc.
 - **Model Tags**: Specific model names like `gpt-4o`, `claude-3-sonnet`

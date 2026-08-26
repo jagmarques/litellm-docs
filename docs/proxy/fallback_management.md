@@ -150,6 +150,12 @@ print(response.json())
 
 ### Test fallback
 
+:::warning Deprecated for Proxy requests
+Starting in LiteLLM Proxy v1.85.0, `mock_testing_fallbacks` is stripped from incoming Proxy requests and has no effect. It remains supported only for direct `litellm.Router` calls in tests.
+:::
+
+To validate the fallback through the Proxy, make the primary deployment unavailable in a non-production environment and send a normal request:
+
 ```bash
 curl -X POST 'http://0.0.0.0:4000/chat/completions' \
 -H 'Content-Type: application/json' \
@@ -161,8 +167,7 @@ curl -X POST 'http://0.0.0.0:4000/chat/completions' \
       "role": "user",
       "content": "ping"
     }
-  ],
-  "mock_testing_fallbacks": true
+  ]
 }
 '
 ```
@@ -256,7 +261,7 @@ Specifically triggered when content policy violations occur.
 1. **Safety**: Only modifies fallback configuration, won't accidentally change other settings
 2. **Simplicity**: Focused API with clear validation messages
 3. **Granularity**: Manage fallbacks per model and per type
-4. **Validation**: Comprehensive checks ensure configuration is valid before applying
+4. **Validation**: Checks that the configuration is valid before applying
 5. **Clarity**: Clear error messages with available models listed
 
 ## Notes
@@ -265,3 +270,7 @@ Specifically triggered when content policy violations occur.
 - Fallbacks are attempted in the order specified in `fallback_models`
 - The maximum number of fallbacks attempted is controlled by the router's `max_fallbacks` setting
 - Changes take effect immediately and are persisted to the database
+
+## Budget Fallbacks
+
+- [Budget Fallbacks](./budget_fallbacks): reroute a request to another model when a per-key `model_max_budget` is exceeded, instead of returning `budget_exceeded`.
